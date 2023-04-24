@@ -2,10 +2,11 @@ from pygnmi.client import gNMIclient
 from prettytable import PrettyTable
 import yaml
 import time
+import logging
 
 start = time.time()
 
-import logging
+
 
 def get_data(router, username, password, skip_verify=True):
     # Disable logging for the gNMIclient module
