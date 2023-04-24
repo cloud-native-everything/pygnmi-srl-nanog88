@@ -1,0 +1,11 @@
+---
+username: admin
+password: admin
+port: 830
+gnmi_port: 57400
+insecure: True
+skip_verify: True
+hostkey_verify: False
+switches:
+  srl:
+    172.18.100.121: None

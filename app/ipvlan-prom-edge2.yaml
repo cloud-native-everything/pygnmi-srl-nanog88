@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ipvlan-1001-edge2-deploy
+spec:
+  selector:
+    matchLabels:
+      app: ipvlan-1001-edge2-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ipvlan-1001-edge2-pod
+    spec:
+      volumes:
+      - name: tftpboot	  # The name of the volume
+        configMap:
+          name: py-tftpboot
+      containers:
+        - name: ipvlan-1001-edge2-pod
+          image: python:latest
+          imagePullPolicy: Never
+          command: ["python3"]
+          args: ["/tftpboot/http_server.py"]
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: K8S_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: HTTP_APP_PORT
+            value: "8080"
+
