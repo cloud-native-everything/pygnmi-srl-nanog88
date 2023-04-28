@@ -1,11 +1,11 @@
 network: "kind"  #do not change unless you do that in all the files
 prefix: "172.18.0.0/16" #do not change unless you do that in all the files
-clabTopology: "/root/srklab/topo.yml"  
+clabTopology: "/root/pygnmi-srl-apps/topo.yml"  
 clusters:
     - name: "edge1"
       kubeconfig: "/root/.kube/config-edge1"
-      config: "/root/srklab/kind/cluster_edge1.yaml"
-      image: "enc-kind-worker:v1.22.2"
+      config: "/root/pygnmi-srl-apps/kind/cluster_edge1.yaml"
+      image: "kindest/node:v1.23.4"
       imagesToLoad:
         - image: alpine:latest
         - image: rogerw/cassowary:v0.14.1
@@ -13,40 +13,40 @@ clusters:
         - image: prom/pushgateway:latest
         - image: ghcr.io/k8snetworkplumbingwg/multus-cni:stable  
       resources:
-        - app: "/root/srklab/kind/multus-daemonset.yml"
-        - app: "/root/srklab/kind/cni-install.yml"
-        - app: "/root/srklab/app/ipvlan-cni-edge1.yaml"
-        - app: "/root/srklab/app/ipvlan-pods-edge1.yaml"
-        - app: "/root/srklab/app/prom.yaml"
+        - app: "/root/pygnmi-srl-apps/kind/multus-daemonset.yml"
+        - app: "/root/pygnmi-srl-apps/kind/cni-install.yml"
+        - app: "/root/pygnmi-srl-apps/app/ipvlan-cni-edge1.yaml"
+        - app: "/root/pygnmi-srl-apps/app/ipvlan-pods-edge1.yaml"
+        - app: "/root/pygnmi-srl-apps/app/prom.yaml"
     - name: "datacenter"
       kubeconfig: "/root/.kube/config-datacenter"
-      config: "/root/srklab/kind/cluster_datacenter.yaml"
-      image: "enc-kind-worker:v1.22.2"
+      config: "/root/pygnmi-srl-apps/kind/cluster_datacenter.yaml"
+      image: "kindest/node:v1.23.4"
       imagesToLoad:
         - image: alpine:latest
         - image: python:latest
         - image: quay.io/metallb/speaker:v0.12.1
         - image: quay.io/metallb/controller:v0.12.1
       resources:
-        - app: "/root/srklab//metallb/metallb-namespace.yaml"
-        - app: "/root/srklab//metallb/metallb-manifest.yaml"
-        - app: "/root/srklab//metallb/metallb-bgp-setup.yaml"
-        - app: "/root/srklab/app/hello-app-python-datacenter.yaml"
-        - app: "/root/srklab/app/hello-app-lb-datacenter.yaml"
+        - app: "/root/pygnmi-srl-apps//metallb/metallb-namespace.yaml"
+        - app: "/root/pygnmi-srl-apps//metallb/metallb-manifest.yaml"
+        - app: "/root/pygnmi-srl-apps//metallb/metallb-bgp-setup.yaml"
+        - app: "/root/pygnmi-srl-apps/app/hello-app-python-datacenter.yaml"
+        - app: "/root/pygnmi-srl-apps/app/hello-app-lb-datacenter.yaml"
 # this is the info clab tool will use to interconnect clusters and containerlab instances
 links:
     - k8sNode: "edge1-control-plane:e1-1"
-      clabNode: "clab-srv6-demo-BORDER-DC-1:e1-10"
+      clabNode: "clab-dc-k8s-BORDER-DC:e1-10"
       k8sIpv4: "192.168.201.101/24"
       k8sIpv4Gw: "172.18.0.1"  # Multus would required to download files from github
       ipvlanMaster:
         - vlan: 1001
         - vlan: 1002
     - k8sNode: "datacenter-worker:e1-1"
-      clabNode: "clab-srv6-demo-LEAF-DC-1:e1-10"
+      clabNode: "clab-dc-k8s-LEAF-DC-1:e1-10"
       k8sIpv4: "192.168.101.101/24"
       k8sIpv4Gw: "192.168.101.1"
     - k8sNode: "datacenter-worker2:e1-1"
-      clabNode: "clab-srv6-demo-LEAF-DC-2:e1-10"
+      clabNode: "clab-dc-k8s-LEAF-DC-2:e1-10"
       k8sIpv4: "192.168.101.102/24"
       k8sIpv4Gw: "192.168.101.1"
