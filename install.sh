@@ -29,20 +29,6 @@ curl -LO https://golang.org/dl/go1.17.8.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.17.8.linux-amd64.tar.gz
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
 source ~/.bashrc
+rm -f go1.17.8.linux-amd64.tar.gz
 go version
-
-# Install kubectl
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
-
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-kubectl version --client
-
-# Install kind
-GOBIN=$HOME/go/bin go install sigs.k8s.io/kind@v0.12.0
-echo 'export PATH=$PATH:$HOME/go/bin' >> ~/.bashrc
-
-# Install Helm
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
