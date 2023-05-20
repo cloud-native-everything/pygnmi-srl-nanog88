@@ -1,10 +1,10 @@
 network: "kind"  #do not change unless you do that in all the files
 prefix: "172.18.0.0/16" #do not change unless you do that in all the files
-clabTopology: "/root/pygnmi-srl-apps/topo.yml"  
+clabTopology: "./topo.yml"  
 clusters:
     - name: "edge1"
-      kubeconfig: "/root/.kube/config-edge1"
-      config: "/root/pygnmi-srl-apps/kind/cluster_edge1.yaml"
+      kubeconfig: ".kube/config-edge1"
+      config: "./kind/cluster_edge1.yaml"
       image: "kindest/node:v1.23.4"
       imagesToLoad:
         - image: alpine:latest
@@ -13,14 +13,14 @@ clusters:
         - image: prom/pushgateway:latest
         - image: ghcr.io/k8snetworkplumbingwg/multus-cni:stable  
       resources:
-        - app: "/root/pygnmi-srl-apps/kind/multus-daemonset.yml"
-        - app: "/root/pygnmi-srl-apps/kind/cni-install.yml"
-        - app: "/root/pygnmi-srl-apps/app/ipvlan-cni-edge1.yaml"
-        - app: "/root/pygnmi-srl-apps/app/ipvlan-pods-edge1.yaml"
-        - app: "/root/pygnmi-srl-apps/app/prom.yaml"
+        - app: "./kind/multus-daemonset.yml"
+        - app: "./kind/cni-install.yml"
+        - app: "./app/ipvlan-cni-edge1.yaml"
+        - app: "./app/ipvlan-pods-edge1.yaml"
+        - app: "./app/prom.yaml"
     - name: "datacenter"
-      kubeconfig: "/root/.kube/config-datacenter"
-      config: "/root/pygnmi-srl-apps/kind/cluster_datacenter.yaml"
+      kubeconfig: ".kube/config-datacenter"
+      config: "./kind/cluster_datacenter.yaml"
       image: "kindest/node:v1.23.4"
       imagesToLoad:
         - image: alpine:latest
@@ -28,11 +28,11 @@ clusters:
         - image: quay.io/metallb/speaker:v0.12.1
         - image: quay.io/metallb/controller:v0.12.1
       resources:
-        - app: "/root/pygnmi-srl-apps//metallb/metallb-namespace.yaml"
-        - app: "/root/pygnmi-srl-apps//metallb/metallb-manifest.yaml"
-        - app: "/root/pygnmi-srl-apps//metallb/metallb-bgp-setup.yaml"
-        - app: "/root/pygnmi-srl-apps/app/hello-app-python-datacenter.yaml"
-        - app: "/root/pygnmi-srl-apps/app/hello-app-lb-datacenter.yaml"
+        - app: "./metallb/metallb-namespace.yaml"
+        - app: "./metallb/metallb-manifest.yaml"
+        - app: "./metallb/metallb-bgp-setup.yaml"
+        - app: "./app/hello-app-python-datacenter.yaml"
+        - app: "./app/hello-app-lb-datacenter.yaml"
 # this is the info clab tool will use to interconnect clusters and containerlab instances
 links:
     - k8sNode: "edge1-control-plane:e1-1"

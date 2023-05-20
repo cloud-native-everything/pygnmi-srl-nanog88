@@ -4,10 +4,10 @@
       "generated-by": "SRLINUX",
       "name": "",
       "comment": "",
-      "created": "2023-02-03T22:02:05.181Z",
+      "created": "2023-05-11T21:11:27.100Z",
       "release": "v21.6.4",
       "enabled-yang-features": ["srl_nokia-features:anycast-gw", "srl_nokia-features:bridged", "srl_nokia-features:evpn", "srl_nokia-features:evpn-advertise-arp-nd-only-with-mac-table-entry", "srl_nokia-features:evpn-mh-pref-alg", "srl_nokia-features:evpn-mh-single-active", "srl_nokia-features:fixed", "srl_nokia-features:future-21-6", "srl_nokia-features:future-21-6-2", "srl_nokia-features:future-21-6-3", "srl_nokia-features:lacp-fallback", "srl_nokia-features:lag", "srl_nokia-features:mirroring", "srl_nokia-features:platform-7220-d3", "srl_nokia-features:port-breakout", "srl_nokia-features:ra-guard", "srl_nokia-features:reload-delay", "srl_nokia-features:storm-control", "srl_nokia-features:trident3", "srl_nokia-features:vxlan", "srl_nokia-features:warm-reboot"],
-      "checksum": "e01d086d2a2e8c7a$2cb95307e50604acff1fc073d0548f221e0f9410"
+      "checksum": "3ee50a262a44ebad$901fa67fa2b52290045a5a3e3d420480cf024ea6"
     },
     "build": {
       "git-branch": "SRL_21_6_B1",
@@ -2539,46 +2539,6 @@
         },
         "srl_nokia-isis:isis": {
           
-        }
-      }
-    },
-    {
-      "name": "kube_macvrf",
-      "type": "srl_nokia-network-instance:mac-vrf",
-      "interface": [
-        {
-          "name": "ethernet-1/11.0"
-        },
-        {
-          "name": "irb0.0"
-        }
-      ],
-      "vxlan-interface": [
-        {
-          "name": "vxlan1.1"
-        }
-      ],
-      "protocols": {
-        "bgp-evpn": {
-          "srl_nokia-bgp-evpn:bgp-instance": [
-            {
-              "id": 1,
-              "admin-state": "enable",
-              "vxlan-interface": "vxlan1.1",
-              "evi": 1
-            }
-          ]
-        },
-        "srl_nokia-bgp-vpn:bgp-vpn": {
-          "bgp-instance": [
-            {
-              "id": 1,
-              "route-target": {
-                "export-rt": "target:65123:1",
-                "import-rt": "target:65123:1"
-              }
-            }
-          ]
         }
       }
     },
