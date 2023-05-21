@@ -1,0 +1,7 @@
+replaces:
+  - path: "/network-instance[name=l2evpn1001]"
+    value: 
+      admin-state: enable
+      type: mac-vrf
+    encoding: json_ietf
+
