@@ -1,0 +1,75 @@
+clab-dc-k8s-LEAF-DC-1:
+  network-instances:
+    - name: l2evpn1001
+      admin-state: enable
+      type: mac-vrf
+      evi: 1001
+      vni: 1001
+      vxtype: bridged
+    - name: l2evpn1002
+      admin-state: enable
+      type: mac-vrf
+      evi: 1002
+      vni: 1002
+      vxtype: bridged
+    - name: l2evpn1003
+      admin-state: enable
+      type: mac-vrf
+      evi: 1003
+      vni: 1003
+      vxtype: bridged
+    - name: l2evpn1004
+      admin-state: enable
+      type: mac-vrf
+      evi: 1004
+      vni: 1004
+      vxtype: bridged
+    - name: l2evpn1005
+      admin-state: enable
+      type: mac-vrf
+      evi: 1005
+      vni: 1005
+      vxtype: bridged
+    - name: l2evpn1006
+      admin-state: enable
+      type: mac-vrf
+      evi: 1006
+      vni: 1006
+clab-dc-k8s-LEAF-DC-2:
+  network-instances:
+    - name: l2evpn1001
+      admin-state: enable
+      type: mac-vrf
+      evi: 1001
+      vni: 1001
+      vxtype: bridged
+    - name: l2evpn1002
+      admin-state: enable
+      type: mac-vrf
+      evi: 1002
+      vni: 1002
+      vxtype: bridged
+    - name: l2evpn1003
+      admin-state: enable
+      type: mac-vrf
+      evi: 1003
+      vni: 1003
+      vxtype: bridged
+    - name: l2evpn1004
+      admin-state: enable
+      type: mac-vrf
+      evi: 1004
+      vni: 1004
+      vxtype: bridged
+    - name: l2evpn1005
+      admin-state: enable
+      type: mac-vrf
+      evi: 1005
+      vni: 1005
+      vxtype: bridged
+    - name: l2evpn1006
+      admin-state: enable
+      type: mac-vrf
+      evi: 1006
+      vni: 1006
+      vxtype: bridged

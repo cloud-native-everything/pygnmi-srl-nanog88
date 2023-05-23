@@ -1,7 +1,26 @@
-replaces:
+replaces:        
   - path: "/network-instance[name=l2evpn1001]"
     value: 
       admin-state: enable
       type: mac-vrf
+      vxlan-interface: 
+        - name: "vxlan2.1001"
     encoding: json_ietf
 
+  - path: "/network-instance[name=l2evpn1001]/protocols/bgp-evpn"
+    value:
+      bgp-instance:
+        - id: 1
+          admin-state: enable
+          vxlan-interface: vxlan2.1001
+          evi: 1001       
+    encoding: json_ietf
+
+  - path: "/network-instance[name=l2evpn1001]/protocols/bgp-vpn"
+    value:
+      bgp-instance:
+        - id: 1
+          route-target:
+            export-rt: target:65123:1001
+            import-rt: target:65123:1001       
+    encoding: json_ietf    

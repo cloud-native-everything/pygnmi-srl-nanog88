@@ -1,0 +1,7 @@
+replaces:
+  - path: "/tunnel-interface[name=vxlan2]/vxlan-interface[index=1001]"
+    value:
+      type: bridged
+      ingress:
+        vni: 1001                                   
+    encoding: json_ietf  
