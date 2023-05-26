@@ -29,7 +29,7 @@ class SrlDevice:
         self.router = router
         self.port = port
         self.password = password
-        self.useername = username
+        self.username = username
         self.skip_verify = skip_verify
         self.model = model
         self.release = release
@@ -39,8 +39,7 @@ class SrlDevice:
     def get_bgp_evpn_info(self):
         # Disable logging for the gNMIclient module
         logging.getLogger('pygnmi').setLevel(logging.CRITICAL)
-        
-        with gNMIclient(target=self.router, username=self.username, password=self.password, skip_verify=self.skip_verify) as gc:
+        with gNMIclient(target=(self.router, self.port), username=self.username, password=self.password, skip_verify=True) as gc:
             result = gc.get(path=['network-instance/protocols/bgp-evpn/bgp-instance'])
         
         # Enable logging for the gNMIclient module
@@ -51,17 +50,20 @@ class SrlDevice:
                             network_instances = update['val']['srl_nokia-network-instance:network-instance']             
                             for network_instance in network_instances:
                                 for bgp_instance in network_instance['protocols']['bgp-evpn']['srl_nokia-bgp-evpn:bgp-instance']:
+                                    #print(network_instance['protocols'])
                                     if not('oper-state' in bgp_instance):
-                                        self.bgp_evpn.append(BgpEvpn(self.router, network_instance['name'], bgp_instance['id'], bgp_instance['admin-state'], bgp_instance['vxlan-interface'], bgp_instance['evi'], bgp_instance['ecmp'], "waiting"))    
+                                        self.bgp_evpn.append(BgpEvpn(network_instance['name'], bgp_instance['id'], bgp_instance['admin-state'], 
+                                                                     bgp_instance['vxlan-interface'], bgp_instance['evi'], bgp_instance['ecmp'], "no state"))    
                                     else:   
-                                        self.bgp_evpn.append(BgpEvpn(self.router, network_instance['name'], bgp_instance['id'], bgp_instance['admin-state'], bgp_instance['vxlan-interface'], bgp_instance['evi'], bgp_instance['ecmp'], bgp_instance['oper-state']))
+                                        self.bgp_evpn.append(BgpEvpn(network_instance['name'], bgp_instance['id'], bgp_instance['admin-state'], 
+                                                                     bgp_instance['vxlan-interface'], bgp_instance['evi'], bgp_instance['ecmp'], bgp_instance['oper-state']))
 
     def get_bgp_vpn_info(self):
         # Disable logging for the gNMIclient module
         logging.getLogger('pygnmi').setLevel(logging.CRITICAL)
         
-        with gNMIclient(target=self.router, username=self.username, password=self.password, skip_verify=self.skip_verify) as gc:
-            result = gc.get(path=['network-instance/protocols/bgp-evpn/bgp-instance'])
+        with gNMIclient(target=(self.router, self.port), username=self.username, password=self.password, skip_verify=True) as gc:
+            result = gc.get(path=['network-instance/protocols/bgp-vpn/bgp-instance'])
         
         # Enable logging for the gNMIclient module
         logging.getLogger('pygnmi').setLevel(logging.WARNING)
@@ -70,8 +72,9 @@ class SrlDevice:
                         if 'srl_nokia-network-instance:network-instance' in update['val']:
                             network_instances = update['val']['srl_nokia-network-instance:network-instance']             
                             for network_instance in network_instances:
-                                for bgp_instance in network_instance['protocols']['bgp-evpn']['srl_nokia-bgp-evpn:bgp-instance']:
-                                        self.bgp_vpn.append(BgpVpn(self.router, network_instance['name'], bgp_instance['id'], bgp_instance['route-distinguisher']['rd'], bgp_instance['route-target']['export-rt'],bgp_instance['route-target']['import-rt']))    
+                                for bgp_instance in network_instance['protocols']['srl_nokia-bgp-vpn:bgp-vpn']['bgp-instance']:
+                                        self.bgp_vpn.append(BgpVpn( network_instance['name'], bgp_instance['id'], bgp_instance.get('route-distinguisher', {}).get('rd'), 
+                                                                   bgp_instance.get('route-target', {}).get('export-rt'),bgp_instance.get('route-target', {}).get('import-rt')))    
 
 
     def connect(self):
@@ -97,15 +100,33 @@ def main():
         srl_devices.append(SrlDevice(router, port, 'ixrd3', '21.6.4', username, password, skip_verify))
 
     table = PrettyTable()
-    table.field_names = ['Router', 'Network instance', 'ID', 'Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'] 
-    table.align = 'l'        
+    table.field_names = ['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'] 
+    table.align = 'l'     
+    rows = []   
     for device in srl_devices:
-        device.get_bgp_evpn_info
-        device.get_bgp_vpn_info    
-        for evpn_inst in device.bgp_evpn:
-             table.add_row([device.router, evpn_inst.network_instance, evpn_inst.id , evpn_inst.admin_state, evpn_inst.vxlan_interface, evpn_inst.evi, evpn_inst.ecmp, evpn_inst.oper_state])  
-        
+        device.get_bgp_evpn_info()
+        device.get_bgp_vpn_info()
+        bgp_Evpn_dict = {item.network_instance: item for item in device.bgp_evpn}
+        bgp_Vpn_dict = {item.network_instance: item for item in device.bgp_vpn}
+        for key in bgp_Evpn_dict.keys():
+            if key in bgp_Vpn_dict:  # Check that the same key exists in the second dictionary
+                rows.append([device.router, key, bgp_Evpn_dict[key].id, bgp_Evpn_dict[key].admin_state, 
+                       bgp_Evpn_dict[key].vxlan_interface, bgp_Evpn_dict[key].evi, bgp_Evpn_dict[key].ecmp, bgp_Evpn_dict[key].oper_state, 
+                       bgp_Vpn_dict[key].rd, bgp_Vpn_dict[key].import_rt, bgp_Vpn_dict[key].export_rt])
+                
+    for row in rows:
+        table.add_row(row)      
+    print("Table 1: Sorted by Router")
     print(table)
+
+    table._rows = []
+    sorted_rows = sorted(rows, key=lambda x: x[1])
+
+    for row in sorted_rows:
+        table.add_row(row)
+    print("Table 2: Sorted by Network Instance")          
+    print(table)
+
 
 if __name__ == '__main__':
     main()
