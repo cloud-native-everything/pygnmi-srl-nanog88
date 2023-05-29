@@ -156,6 +156,20 @@ class SrlDevice:
                 bgp_vpn.append(self.BgpVpn(network_instance['name'], bgp_instance['id'], bgp_instance.get('route-distinguisher', {}).get('rd'), bgp_instance.get('route-target', {}).get('export-rt'),bgp_instance.get('route-target', {}).get('import-rt')))
         return bgp_vpn
 
+from tabulate import tabulate
+
+def highlight_alternate_groups(rows, column_to_check):
+    previous_value = None
+    color_switch = False
+    for row in rows:
+        if previous_value is not None and previous_value != row[column_to_check]:
+            color_switch = not color_switch
+
+        if color_switch:
+            row[column_to_check] = f"\033[43m{row[column_to_check]}\033[0m"
+
+        previous_value = row[column_to_check]
+    return rows
 
 def main():
     try:
@@ -209,12 +223,15 @@ def main():
 
     table._rows = []
     sorted_rows = sorted(rows, key=lambda x: x[1])
-    for row in sorted_rows:
-        table.add_row(row)
         
     print("Table 2: Sorted by Network Instance")          
+    table = tabulate(rows, headers=['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'], tablefmt="pretty")
     print(table)
 
+    highlighted_rows = highlight_alternate_groups(sorted_rows, 1)  # Assuming Network Instance is the 1st column (0-indexed)
+
+    table = tabulate(highlighted_rows, headers=['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'], tablefmt="pretty")
+    print(table)
 
 
 if __name__ == '__main__':
