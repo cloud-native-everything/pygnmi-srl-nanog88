@@ -32,14 +32,6 @@ LOGGING_LEVEL_WARNING = logging.WARNING
 
 # Define magic numbers as constants
 DEFAULT_SKIP_VERIFY = True
-DEFAULT_MODEL = 'ixrd3'
-DEFAULT_RELEASE = '21.6.4'
-
-# Define the router info filename as a command line argument
-import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument('filename', help='the filename of the router info YAML file')
-args = parser.parse_args()
 
 
 

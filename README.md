@@ -130,4 +130,39 @@ To see the actual files we'll use on this tutorial check at https://github.com/c
 
 ## Checking EVPN settings using pyGNMI
 
+This Python application connects to a list of specified routers using the gNMI protocol and retrieves both BGP EVPN and BGP VPN information. The information is then formatted into a PrettyTable for easy viewing.
+
+The application primarily consists of the SrlDevice class, which represents a router. This class is initialized with the router's basic information and uses the gNMI client to fetch BGP EVPN and BGP VPN information.
+
+The application then creates a list of these SrlDevice instances based on a YAML configuration file ('datacenter-nodes.yml'). It generates two tables: one sorted by router name and another sorted by network instance.
+
+```bash
+[root@rbc-r2-hpe4 py-scripts]# python3 display_evpn_per_router.py datacenter-nodes.yml
+Table: Sorted by Router
++-----------------------+------------------+----+------------------+-----------------+------+------+------------+--------------+-------------------+-------------------+
+| Router                | Network instance | ID | EVPN Admin state | VXLAN interface | EVI  | ECMP | Oper state | RD           | import-rt         | export-rt         |
++-----------------------+------------------+----+------------------+-----------------+------+------+------------+--------------+-------------------+-------------------+
+| clab-dc-k8s-LEAF-DC-1 | kube-ipvrf       | 1  | enable           | vxlan1.4        | 4    | 4    | up         | 1.1.1.1:4    | target:65123:4    | target:65123:4    |
+| clab-dc-k8s-LEAF-DC-1 | kube_macvrf      | 1  | enable           | vxlan1.1        | 1    | 1    | up         | 1.1.1.1:1    | target:65123:1    | target:65123:1    |
+| clab-dc-k8s-LEAF-DC-1 | l2evpn1001       | 2  | enable           | vxlan2.1001     | 1001 | 1    | no state   | 1.1.1.1:1001 | target:65123:1001 | target:65123:1001 |
+| clab-dc-k8s-LEAF-DC-1 | l2evpn1002       | 2  | enable           | vxlan2.1002     | 1002 | 1    | no state   | 1.1.1.1:1002 | target:65123:1002 | target:65123:1002 |
+| clab-dc-k8s-LEAF-DC-1 | l2evpn1003       | 2  | enable           | vxlan2.1003     | 1003 | 1    | no state   | 1.1.1.1:1003 | target:65123:1003 | target:65123:1003 |
+| clab-dc-k8s-LEAF-DC-1 | l2evpn1004       | 2  | enable           | vxlan2.1004     | 1004 | 1    | no state   | 1.1.1.1:1004 | target:65123:1004 | target:65123:1004 |
+| clab-dc-k8s-LEAF-DC-1 | l2evpn1005       | 2  | enable           | vxlan2.1005     | 1005 | 1    | no state   | 1.1.1.1:1005 | target:65123:1005 | target:65123:1005 |
+| clab-dc-k8s-LEAF-DC-1 | l2evpn1006       | 2  | enable           | vxlan2.1006     | 1006 | 1    | no state   | 1.1.1.1:1006 | target:65123:1006 | target:65123:1006 |
+| clab-dc-k8s-LEAF-DC-1 | l3evpn           | 1  | enable           | vxlan1.2        | 2    | 4    | up         | 1.1.1.1:2    | target:65123:2    | target:65123:2    |
+| clab-dc-k8s-LEAF-DC-2 | kube-ipvrf       | 1  | enable           | vxlan1.4        | 4    | 4    | up         | 1.1.1.2:4    | target:65123:4    | target:65123:4    |
+| clab-dc-k8s-LEAF-DC-2 | kube_macvrf      | 1  | enable           | vxlan1.1        | 1    | 1    | up         | 1.1.1.2:1    | target:65123:1    | target:65123:1    |
+| clab-dc-k8s-LEAF-DC-2 | l2evpn1001       | 2  | enable           | vxlan2.1001     | 1001 | 1    | up         | 1.1.1.2:1001 | target:65123:1001 | target:65123:1001 |
+| clab-dc-k8s-LEAF-DC-2 | l2evpn1002       | 2  | enable           | vxlan2.1002     | 1002 | 1    | up         | 1.1.1.2:1002 | target:65123:1002 | target:65123:1002 |
+| clab-dc-k8s-LEAF-DC-2 | l2evpn1003       | 2  | enable           | vxlan2.1003     | 1003 | 1    | no state   | 1.1.1.2:1003 | target:65123:1003 | target:65123:1003 |
+| clab-dc-k8s-LEAF-DC-2 | l2evpn1004       | 2  | enable           | vxlan2.1004     | 1004 | 1    | no state   | 1.1.1.2:1004 | target:65123:1004 | target:65123:1004 |
+| clab-dc-k8s-LEAF-DC-2 | l2evpn1005       | 2  | enable           | vxlan2.1005     | 1005 | 1    | no state   | 1.1.1.2:1005 | target:65123:1005 | target:65123:1005 |
+| clab-dc-k8s-LEAF-DC-2 | l2evpn1006       | 2  | enable           | vxlan2.1006     | 1006 | 1    | no state   | 1.1.1.2:1006 | target:65123:1006 | target:65123:1006 |
+| clab-dc-k8s-LEAF-DC-2 | l3evpn           | 1  | enable           | vxlan1.2        | 2    | 4    | up         | 1.1.1.2:2    | target:65123:2    | target:65123:2    |
+| clab-dc-k8s-BORDER-DC | kube-ipvrf       | 1  | enable           | vxlan1.4        | 4    | 4    | up         | 1.1.1.10:4   | target:65123:4    | target:65123:4    |
++-----------------------+------------------+----+------------------+-----------------+------+------+------------+--------------+-------------------+-------------------+
+Total time: 1.52 seconds
+```
+
 To see the actual files we'll use on this tutorial check at https://github.com/cloud-native-everything/pygnmi-srl-nanog88/tree/main/py-scripts
