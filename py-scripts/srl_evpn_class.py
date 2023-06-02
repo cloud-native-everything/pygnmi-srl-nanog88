@@ -23,8 +23,6 @@ Last Updated: June 2023
 
 from pygnmi.client import gNMIclient
 from prettytable import PrettyTable
-import yaml
-import time
 import logging
 
 # Define logging levels as constants
@@ -42,7 +40,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('filename', help='the filename of the router info YAML file')
 args = parser.parse_args()
 
-start = time.time()
 
 
 class SrlDevice:
@@ -156,9 +153,23 @@ class SrlDevice:
                 bgp_vpn.append(self.BgpVpn(network_instance['name'], bgp_instance['id'], bgp_instance.get('route-distinguisher', {}).get('rd'), bgp_instance.get('route-target', {}).get('export-rt'),bgp_instance.get('route-target', {}).get('import-rt')))
         return bgp_vpn
 
-from tabulate import tabulate
+def MergeEvpnToArray(srl_devices):
+    rows = []
+    for device in srl_devices:
+        bgp_Evpn_dict = {item.network_instance: item for item in device.bgp_evpn}
+        bgp_Vpn_dict = {item.network_instance: item for item in device.bgp_vpn}
+        for key in bgp_Evpn_dict.keys():
+            if key in bgp_Vpn_dict:
+                rows.append([device.router, key, bgp_Evpn_dict[key].id, bgp_Evpn_dict[key].admin_state, 
+                            bgp_Evpn_dict[key].vxlan_interface, bgp_Evpn_dict[key].evi, bgp_Evpn_dict[key].ecmp,
+                            bgp_Evpn_dict[key].oper_state, bgp_Vpn_dict[key].rd, bgp_Vpn_dict[key].import_rt,
+                            bgp_Vpn_dict[key].export_rt])
+    if not rows:
+        print("No data to display.")
+        return    
+    return rows   
 
-def highlight_alternate_groups(rows, column_to_check):
+def HighlightAlternateGroups(rows, column_to_check):
     previous_value = None
     color_switch = False
     for row in rows:
@@ -171,71 +182,3 @@ def highlight_alternate_groups(rows, column_to_check):
         previous_value = row[column_to_check]
     return rows
 
-def main():
-    try:
-        with open(args.filename, 'r') as fh:
-            router_info = yaml.safe_load(fh)
-    except FileNotFoundError:
-        print(f"File {args.filename} not found.")
-        return
-    except yaml.YAMLError as exc:
-        print(f"Error in configuration file: {exc}")
-        return
-
-    try:
-        switches = router_info['switches']
-        routers = switches['srl']
-        username = router_info['username']
-        password = router_info['password']
-        port = router_info['gnmi_port']
-        skip_verify = router_info['skip_verify']
-    except KeyError as e:
-        print(f"Key {e} not found in configuration file.")
-        return
-
-    srl_devices = []
-    for router in routers:
-        srl_devices.append(SrlDevice(router, port, DEFAULT_MODEL, DEFAULT_RELEASE, username, password, skip_verify))
-
-    rows = []
-    for device in srl_devices:
-        bgp_Evpn_dict = {item.network_instance: item for item in device.bgp_evpn}
-        bgp_Vpn_dict = {item.network_instance: item for item in device.bgp_vpn}
-        for key in bgp_Evpn_dict.keys():
-            if key in bgp_Vpn_dict:
-                rows.append([device.router, key, bgp_Evpn_dict[key].id, bgp_Evpn_dict[key].admin_state, 
-                             bgp_Evpn_dict[key].vxlan_interface, bgp_Evpn_dict[key].evi, bgp_Evpn_dict[key].ecmp,
-                             bgp_Evpn_dict[key].oper_state, bgp_Vpn_dict[key].rd, bgp_Vpn_dict[key].import_rt,
-                             bgp_Vpn_dict[key].export_rt])
-
-    if not rows:
-        print("No data to display.")
-        return
-
-    table = PrettyTable()
-    table.field_names = ['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'] 
-    table.align = 'l' 
-    for row in rows:
-        table.add_row(row)      
-
-    print("Table 1: Sorted by Router")
-    print(table)
-
-    table._rows = []
-    sorted_rows = sorted(rows, key=lambda x: x[1])
-        
-    print("Table 2: Sorted by Network Instance")          
-    table = tabulate(rows, headers=['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'], tablefmt="pretty")
-    print(table)
-
-    highlighted_rows = highlight_alternate_groups(sorted_rows, 1)  # Assuming Network Instance is the 1st column (0-indexed)
-
-    table = tabulate(highlighted_rows, headers=['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'], tablefmt="pretty")
-    print(table)
-
-
-if __name__ == '__main__':
-    main()
-    end = time.time()
-    float_format = '{0:.2F}'
-    print(f'Total time: {float_format.format(end - start)} seconds')
