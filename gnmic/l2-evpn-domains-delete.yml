@@ -1,3 +1,0 @@
-deletes:
-  - /network-instance[name=l2evpn1001]
-

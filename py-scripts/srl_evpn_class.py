@@ -24,6 +24,7 @@ Last Updated: June 2023
 from pygnmi.client import gNMIclient
 from prettytable import PrettyTable
 import logging
+from itertools import groupby
 
 # Define logging levels as constants
 LOGGING_LEVEL_CRITICAL = logging.CRITICAL
@@ -169,16 +170,23 @@ def MergeEvpnToArray(srl_devices):
         return    
     return rows   
 
-def HighlightAlternateGroups(rows, column_to_check):
-    previous_value = None
-    color_switch = False
-    for row in rows:
-        if previous_value is not None and previous_value != row[column_to_check]:
-            color_switch = not color_switch
-
-        if color_switch:
-            row[column_to_check] = f"\033[43m{row[column_to_check]}\033[0m"
-
-        previous_value = row[column_to_check]
-    return rows
+def HighlightAlternateGroups(sorted_rows, column_to_check):
+    """
+    sorted_rows has been sorted out based on network instance already
+    function will display a difference of evi between domains in different routers
+    """
+    lighted_rows = []
+    grouped_rows = groupby(sorted_rows, key=lambda x: x[1])
+    for network, group in grouped_rows:
+        print(f"Checking Network: {network} ...")
+        previous_value = None
+        color_switch = False
+        for row in list(group):
+            if previous_value is not None and previous_value != row[column_to_check]:
+                color_switch = not color_switch
+            if color_switch:
+                row[column_to_check] = f"\033[43m{row[column_to_check]}\033[0m"
+            previous_value = row[column_to_check]
+            lighted_rows.append(row)
+    return lighted_rows
 

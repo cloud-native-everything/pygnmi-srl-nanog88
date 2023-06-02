@@ -4,10 +4,10 @@
       "generated-by": "SRLINUX",
       "name": "",
       "comment": "",
-      "created": "2023-01-30T21:43:34.559Z",
+      "created": "2023-06-02T17:08:23.758Z",
       "release": "v21.6.4",
       "enabled-yang-features": ["srl_nokia-features:anycast-gw", "srl_nokia-features:bridged", "srl_nokia-features:evpn", "srl_nokia-features:evpn-advertise-arp-nd-only-with-mac-table-entry", "srl_nokia-features:evpn-mh-pref-alg", "srl_nokia-features:evpn-mh-single-active", "srl_nokia-features:fixed", "srl_nokia-features:future-21-6", "srl_nokia-features:future-21-6-2", "srl_nokia-features:future-21-6-3", "srl_nokia-features:lacp-fallback", "srl_nokia-features:lag", "srl_nokia-features:mirroring", "srl_nokia-features:platform-7220-d3", "srl_nokia-features:port-breakout", "srl_nokia-features:ra-guard", "srl_nokia-features:reload-delay", "srl_nokia-features:storm-control", "srl_nokia-features:trident3", "srl_nokia-features:vxlan", "srl_nokia-features:warm-reboot"],
-      "checksum": "e630ea1aa2e3a6cf$b63fa3deccf770280174ad89ae27facdeb8672fa"
+      "checksum": "88fc2fe1587995f1$a2b188ba21f8457ef3f8fc74017e9cc006557a79"
     },
     "build": {
       "git-branch": "SRL_21_6_B1",
@@ -1981,6 +1981,198 @@
           "anycast-gw": {
             
           }
+        },
+        {
+          "index": 1001,
+          "admin-state": "enable",
+          "ipv4": {
+            "address": [
+              {
+                "ip-prefix": "10.0.1.1/24",
+                "anycast-gw": true
+              }
+            ],
+            "srl_nokia-interfaces-nbr:arp": {
+              "learn-unsolicited": true,
+              "host-route": {
+                "populate": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              },
+              "srl_nokia-interfaces-nbr-evpn:evpn": {
+                "advertise": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              }
+            }
+          },
+          "anycast-gw": {
+            
+          }
+        },
+        {
+          "index": 1002,
+          "admin-state": "enable",
+          "ipv4": {
+            "address": [
+              {
+                "ip-prefix": "10.0.2.1/24",
+                "anycast-gw": true
+              }
+            ],
+            "srl_nokia-interfaces-nbr:arp": {
+              "learn-unsolicited": true,
+              "host-route": {
+                "populate": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              },
+              "srl_nokia-interfaces-nbr-evpn:evpn": {
+                "advertise": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              }
+            }
+          },
+          "anycast-gw": {
+            
+          }
+        },
+        {
+          "index": 1003,
+          "admin-state": "enable",
+          "ipv4": {
+            "address": [
+              {
+                "ip-prefix": "10.0.3.1/24",
+                "anycast-gw": true
+              }
+            ],
+            "srl_nokia-interfaces-nbr:arp": {
+              "learn-unsolicited": true,
+              "host-route": {
+                "populate": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              },
+              "srl_nokia-interfaces-nbr-evpn:evpn": {
+                "advertise": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              }
+            }
+          },
+          "anycast-gw": {
+            
+          }
+        },
+        {
+          "index": 1004,
+          "admin-state": "enable",
+          "ipv4": {
+            "address": [
+              {
+                "ip-prefix": "10.0.4.1/24",
+                "anycast-gw": true
+              }
+            ],
+            "srl_nokia-interfaces-nbr:arp": {
+              "learn-unsolicited": true,
+              "host-route": {
+                "populate": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              },
+              "srl_nokia-interfaces-nbr-evpn:evpn": {
+                "advertise": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              }
+            }
+          },
+          "anycast-gw": {
+            
+          }
+        },
+        {
+          "index": 1005,
+          "admin-state": "enable",
+          "ipv4": {
+            "address": [
+              {
+                "ip-prefix": "10.0.5.1/24",
+                "anycast-gw": true
+              }
+            ],
+            "srl_nokia-interfaces-nbr:arp": {
+              "learn-unsolicited": true,
+              "host-route": {
+                "populate": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              },
+              "srl_nokia-interfaces-nbr-evpn:evpn": {
+                "advertise": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              }
+            }
+          },
+          "anycast-gw": {
+            
+          }
+        },
+        {
+          "index": 1006,
+          "admin-state": "enable",
+          "ipv4": {
+            "address": [
+              {
+                "ip-prefix": "10.0.6.1/24",
+                "anycast-gw": true
+              }
+            ],
+            "srl_nokia-interfaces-nbr:arp": {
+              "learn-unsolicited": true,
+              "host-route": {
+                "populate": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              },
+              "srl_nokia-interfaces-nbr-evpn:evpn": {
+                "advertise": [
+                  {
+                    "route-type": "dynamic"
+                  }
+                ]
+              }
+            }
+          },
+          "anycast-gw": {
+            
+          }
         }
       ]
     },
@@ -2481,6 +2673,273 @@
       }
     },
     {
+      "name": "l2evpn1001",
+      "type": "srl_nokia-network-instance:mac-vrf",
+      "admin-state": "enable",
+      "description": "whatever",
+      "interface": [
+        {
+          "name": "irb0.1001"
+        }
+      ],
+      "vxlan-interface": [
+        {
+          "name": "vxlan2.1001"
+        }
+      ],
+      "protocols": {
+        "bgp-evpn": {
+          "srl_nokia-bgp-evpn:bgp-instance": [
+            {
+              "id": 2,
+              "admin-state": "enable",
+              "vxlan-interface": "vxlan2.1001",
+              "evi": 1001
+            }
+          ]
+        },
+        "srl_nokia-bgp-vpn:bgp-vpn": {
+          "bgp-instance": [
+            {
+              "id": 2,
+              "route-target": {
+                "export-rt": "target:65123:1001",
+                "import-rt": "target:65123:1001"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "l2evpn1002",
+      "type": "srl_nokia-network-instance:mac-vrf",
+      "admin-state": "enable",
+      "description": "whatever",
+      "interface": [
+        {
+          "name": "irb0.1002"
+        }
+      ],
+      "vxlan-interface": [
+        {
+          "name": "vxlan2.1002"
+        }
+      ],
+      "protocols": {
+        "bgp-evpn": {
+          "srl_nokia-bgp-evpn:bgp-instance": [
+            {
+              "id": 2,
+              "admin-state": "enable",
+              "vxlan-interface": "vxlan2.1002",
+              "evi": 1002
+            }
+          ]
+        },
+        "srl_nokia-bgp-vpn:bgp-vpn": {
+          "bgp-instance": [
+            {
+              "id": 2,
+              "route-target": {
+                "export-rt": "target:65123:1002",
+                "import-rt": "target:65123:1002"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "l2evpn1003",
+      "type": "srl_nokia-network-instance:mac-vrf",
+      "admin-state": "enable",
+      "description": "whatever",
+      "interface": [
+        {
+          "name": "irb0.1003"
+        }
+      ],
+      "vxlan-interface": [
+        {
+          "name": "vxlan2.1003"
+        }
+      ],
+      "protocols": {
+        "bgp-evpn": {
+          "srl_nokia-bgp-evpn:bgp-instance": [
+            {
+              "id": 2,
+              "admin-state": "enable",
+              "vxlan-interface": "vxlan2.1003",
+              "evi": 1003
+            }
+          ]
+        },
+        "srl_nokia-bgp-vpn:bgp-vpn": {
+          "bgp-instance": [
+            {
+              "id": 2,
+              "route-target": {
+                "export-rt": "target:65123:1003",
+                "import-rt": "target:65123:1003"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "l2evpn1004",
+      "type": "srl_nokia-network-instance:mac-vrf",
+      "admin-state": "enable",
+      "description": "whatever",
+      "interface": [
+        {
+          "name": "irb0.1004"
+        }
+      ],
+      "vxlan-interface": [
+        {
+          "name": "vxlan2.1004"
+        }
+      ],
+      "protocols": {
+        "bgp-evpn": {
+          "srl_nokia-bgp-evpn:bgp-instance": [
+            {
+              "id": 2,
+              "admin-state": "enable",
+              "vxlan-interface": "vxlan2.1004",
+              "evi": 1004
+            }
+          ]
+        },
+        "srl_nokia-bgp-vpn:bgp-vpn": {
+          "bgp-instance": [
+            {
+              "id": 2,
+              "route-target": {
+                "export-rt": "target:65123:1004",
+                "import-rt": "target:65123:1004"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "l2evpn1005",
+      "type": "srl_nokia-network-instance:mac-vrf",
+      "admin-state": "enable",
+      "description": "whatever",
+      "interface": [
+        {
+          "name": "irb0.1005"
+        }
+      ],
+      "vxlan-interface": [
+        {
+          "name": "vxlan2.1005"
+        }
+      ],
+      "protocols": {
+        "bgp-evpn": {
+          "srl_nokia-bgp-evpn:bgp-instance": [
+            {
+              "id": 2,
+              "admin-state": "enable",
+              "vxlan-interface": "vxlan2.1005",
+              "evi": 1005
+            }
+          ]
+        },
+        "srl_nokia-bgp-vpn:bgp-vpn": {
+          "bgp-instance": [
+            {
+              "id": 2,
+              "route-target": {
+                "export-rt": "target:65123:1005",
+                "import-rt": "target:65123:1005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "l2evpn1006",
+      "type": "srl_nokia-network-instance:mac-vrf",
+      "admin-state": "enable",
+      "description": "whatever",
+      "interface": [
+        {
+          "name": "irb0.1006"
+        }
+      ],
+      "vxlan-interface": [
+        {
+          "name": "vxlan2.1006"
+        }
+      ],
+      "protocols": {
+        "bgp-evpn": {
+          "srl_nokia-bgp-evpn:bgp-instance": [
+            {
+              "id": 2,
+              "admin-state": "enable",
+              "vxlan-interface": "vxlan2.1006",
+              "evi": 1006
+            }
+          ]
+        },
+        "srl_nokia-bgp-vpn:bgp-vpn": {
+          "bgp-instance": [
+            {
+              "id": 2,
+              "route-target": {
+                "export-rt": "target:65123:1006",
+                "import-rt": "target:65123:1006"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "l3evpn",
+      "type": "srl_nokia-network-instance:ip-vrf",
+      "vxlan-interface": [
+        {
+          "name": "vxlan1.2"
+        }
+      ],
+      "protocols": {
+        "bgp-evpn": {
+          "srl_nokia-bgp-evpn:bgp-instance": [
+            {
+              "id": 1,
+              "admin-state": "enable",
+              "vxlan-interface": "vxlan1.2",
+              "evi": 2,
+              "ecmp": 4
+            }
+          ]
+        },
+        "srl_nokia-bgp-vpn:bgp-vpn": {
+          "bgp-instance": [
+            {
+              "id": 1,
+              "route-target": {
+                "export-rt": "target:65123:2",
+                "import-rt": "target:65123:2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
       "name": "mgmt",
       "type": "srl_nokia-network-instance:ip-vrf",
       "admin-state": "enable",
@@ -2625,6 +3084,13 @@
           }
         },
         {
+          "index": 2,
+          "type": "srl_nokia-interfaces:routed",
+          "ingress": {
+            "vni": 2
+          }
+        },
+        {
           "index": 4,
           "type": "srl_nokia-interfaces:routed",
           "ingress": {
@@ -2636,6 +3102,53 @@
           "type": "srl_nokia-interfaces:bridged",
           "ingress": {
             "vni": 6
+          }
+        }
+      ]
+    },
+    {
+      "name": "vxlan2",
+      "vxlan-interface": [
+        {
+          "index": 1001,
+          "type": "srl_nokia-interfaces:bridged",
+          "ingress": {
+            "vni": 1001
+          }
+        },
+        {
+          "index": 1002,
+          "type": "srl_nokia-interfaces:bridged",
+          "ingress": {
+            "vni": 1002
+          }
+        },
+        {
+          "index": 1003,
+          "type": "srl_nokia-interfaces:bridged",
+          "ingress": {
+            "vni": 1003
+          }
+        },
+        {
+          "index": 1004,
+          "type": "srl_nokia-interfaces:bridged",
+          "ingress": {
+            "vni": 1004
+          }
+        },
+        {
+          "index": 1005,
+          "type": "srl_nokia-interfaces:bridged",
+          "ingress": {
+            "vni": 1005
+          }
+        },
+        {
+          "index": 1006,
+          "type": "srl_nokia-interfaces:bridged",
+          "ingress": {
+            "vni": 1006
           }
         }
       ]

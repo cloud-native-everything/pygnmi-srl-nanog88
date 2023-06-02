@@ -90,7 +90,7 @@ def main():
         
     print("Table: Sorted by Network Instance")          
 
-    highlighted_rows = HighlightAlternateGroups(sorted_rows, 1)  # Assuming Network Instance is the 1st column (0-indexed)
+    highlighted_rows = HighlightAlternateGroups(sorted_rows, 5)  # Assuming Network Instance is the 1st column (0-indexed)
 
     table = tabulate(highlighted_rows, headers=['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'], tablefmt="pretty")
     print(table)
