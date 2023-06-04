@@ -78,11 +78,11 @@ def main():
         return
 
     table = PrettyTable()
-    table.field_names = ['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'] 
+    table.field_names = ['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface',
+                          'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'] 
     table.align = 'l' 
     for row in rows:
         table.add_row(row)      
-
     print("Table: Sorted by Router")
     print(table)
 

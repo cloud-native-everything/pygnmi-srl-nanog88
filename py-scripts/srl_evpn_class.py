@@ -22,7 +22,6 @@ Last Updated: June 2023
 """
 
 from pygnmi.client import gNMIclient
-from prettytable import PrettyTable
 import logging
 from itertools import groupby
 
@@ -56,8 +55,8 @@ class SrlDevice:
         self.skip_verify = skip_verify
         self.model = model
         self.release = release
-        self.bgp_evpn = self.get_bgp_evpn_info()
-        self.bgp_vpn = self.get_bgp_vpn_info()
+        self.bgp_evpn = self._get_bgp_evpn_info()
+        self.bgp_vpn = self._get_bgp_vpn_info()
 
     class BgpEvpn:
         def __init__(self, network_instance, id, admin_state, vxlan_interface, evi, ecmp, oper_state):
@@ -114,7 +113,7 @@ class SrlDevice:
         return info
 
 
-    def get_bgp_evpn_info(self): 
+    def _get_bgp_evpn_info(self): 
         """
         Fetches BGP EVPN information from the router.
         Info like EVI, VXLAN Interface
@@ -127,12 +126,12 @@ class SrlDevice:
         for network_instance in info:
             for bgp_instance in network_instance['protocols']['bgp-evpn']['srl_nokia-bgp-evpn:bgp-instance']:
                 if not('oper-state' in bgp_instance):
-                    bgp_evpn.append(self.BgpEvpn(network_instance['name'], bgp_instance['id'], bgp_instance['admin-state'], bgp_instance['vxlan-interface'], bgp_instance['evi'], bgp_instance['ecmp'], "no state"))
+                    bgp_evpn.append(self.BgpEvpn(network_instance['name'], bgp_instance['id'], bgp_instance['admin-state'], bgp_instance['vxlan-interface'], bgp_instance['evi'], bgp_instance['ecmp'], "up"))
                 else:
                     bgp_evpn.append(self.BgpEvpn(network_instance['name'], bgp_instance['id'], bgp_instance['admin-state'], bgp_instance['vxlan-interface'], bgp_instance['evi'], bgp_instance['ecmp'], bgp_instance['oper-state']))
         return bgp_evpn
 
-    def get_bgp_vpn_info(self):
+    def _get_bgp_vpn_info(self):
         """
         Fetches BGP VPN information from the router.
 
@@ -170,7 +169,6 @@ def HighlightAlternateGroups(sorted_rows, column_to_check):
     lighted_rows = []
     grouped_rows = groupby(sorted_rows, key=lambda x: x[1])
     for network, group in grouped_rows:
-        print(f"Checking Network: {network} ...")
         previous_value = None
         color_switch = False
         for row in list(group):

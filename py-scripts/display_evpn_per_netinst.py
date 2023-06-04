@@ -21,7 +21,6 @@ Author: Mauricio Rojas
 Last Updated: June 2023
 """
 
-from prettytable import PrettyTable
 import yaml
 import time
 import logging
@@ -79,20 +78,13 @@ def main():
         print("No data to display.")
         return
 
-    table = PrettyTable()
-    table.field_names = ['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'] 
-    table.align = 'l' 
-    for row in rows:
-        table.add_row(row)      
-
 
     sorted_rows = sorted(rows, key=lambda x: x[1])
-        
     print("Table: Sorted by Network Instance")          
-
     highlighted_rows = HighlightAlternateGroups(sorted_rows, 5)  # Assuming Network Instance is the 1st column (0-indexed)
-
-    table = tabulate(highlighted_rows, headers=['Router', 'Network instance', 'ID', 'EVPN Admin state', 'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 'RD', 'import-rt', 'export-rt'], tablefmt="pretty")
+    table = tabulate(highlighted_rows, headers=['Router', 'Network instance', 'ID', 'EVPN Admin state', 
+                                                'VXLAN interface', 'EVI', 'ECMP', 'Oper state', 
+                                                'RD', 'import-rt', 'export-rt'], tablefmt="pretty")
     print(table)
 
 
