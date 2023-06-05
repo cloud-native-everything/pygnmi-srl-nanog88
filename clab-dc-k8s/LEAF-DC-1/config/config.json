@@ -4,10 +4,10 @@
       "generated-by": "SRLINUX",
       "name": "",
       "comment": "",
-      "created": "2023-01-30T21:41:18.558Z",
+      "created": "2023-06-05T15:42:20.588Z",
       "release": "v21.6.4",
       "enabled-yang-features": ["srl_nokia-features:anycast-gw", "srl_nokia-features:bridged", "srl_nokia-features:evpn", "srl_nokia-features:evpn-advertise-arp-nd-only-with-mac-table-entry", "srl_nokia-features:evpn-mh-pref-alg", "srl_nokia-features:evpn-mh-single-active", "srl_nokia-features:fixed", "srl_nokia-features:future-21-6", "srl_nokia-features:future-21-6-2", "srl_nokia-features:future-21-6-3", "srl_nokia-features:lacp-fallback", "srl_nokia-features:lag", "srl_nokia-features:mirroring", "srl_nokia-features:platform-7220-d3", "srl_nokia-features:port-breakout", "srl_nokia-features:ra-guard", "srl_nokia-features:reload-delay", "srl_nokia-features:storm-control", "srl_nokia-features:trident3", "srl_nokia-features:vxlan", "srl_nokia-features:warm-reboot"],
-      "checksum": "6bb8a1527249e518$3edae6371cc9ebe9e335a08032016096a792f019"
+      "checksum": "01325141b539d26e$6e1b623f374f9b87d7b743f195972e29f5f43df3"
     },
     "build": {
       "git-branch": "SRL_21_6_B1",
@@ -2481,6 +2481,39 @@
       }
     },
     {
+      "name": "l3evpn",
+      "type": "srl_nokia-network-instance:ip-vrf",
+      "vxlan-interface": [
+        {
+          "name": "vxlan1.2"
+        }
+      ],
+      "protocols": {
+        "bgp-evpn": {
+          "srl_nokia-bgp-evpn:bgp-instance": [
+            {
+              "id": 1,
+              "admin-state": "enable",
+              "vxlan-interface": "vxlan1.2",
+              "evi": 2,
+              "ecmp": 4
+            }
+          ]
+        },
+        "srl_nokia-bgp-vpn:bgp-vpn": {
+          "bgp-instance": [
+            {
+              "id": 1,
+              "route-target": {
+                "export-rt": "target:65123:2",
+                "import-rt": "target:65123:2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
       "name": "mgmt",
       "type": "srl_nokia-network-instance:ip-vrf",
       "admin-state": "enable",
@@ -2625,6 +2658,13 @@
           }
         },
         {
+          "index": 2,
+          "type": "srl_nokia-interfaces:routed",
+          "ingress": {
+            "vni": 2
+          }
+        },
+        {
           "index": 4,
           "type": "srl_nokia-interfaces:routed",
           "ingress": {
@@ -2639,6 +2679,9 @@
           }
         }
       ]
+    },
+    {
+      "name": "vxlan2"
     }
   ]
 }

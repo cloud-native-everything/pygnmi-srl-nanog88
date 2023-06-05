@@ -25,7 +25,7 @@ This command would return the hostname of the network device at the specified ad
 Go Templates can be used along with GNMIc to simplify the process of creating or modifying multiple network instances and interfaces. Here is an example:
 
 ```bash
-gnmic -a clab-dc-k8s-LEAF-DC-1,clab-dc-k8s-LEAF-DC-2 -u admin -p admin --skip-verify set --request-vars l2-evpn-domains-create-vars.yml --request-file l2-evpn-domains-create.gotmpl
+gnmic -a clab-dc-k8s-LEAF-DC-1,clab-dc-k8s-LEAF-DC-2 -u admin -p admin --skip-verify set --request-vars l2-evpn-vars.yml --request-file l2-evpn-create.gtpl
 ```
 In this command:
 

@@ -1,11 +1,5 @@
 all:
   children:
-    linux:
-      hosts:
-        clab-dc-k8s-grafana:
-          ansible_host: 172.18.100.116
-        clab-dc-k8s-prometheus:
-          ansible_host: 172.18.100.115
     srl:
       hosts:
         clab-dc-k8s-BORDER-DC:
