@@ -124,8 +124,9 @@ Table: Sorted by Network Instance
 | clab-dc-k8s-LEAF-DC-2 |      l3evpn      | 1  |      enable      |    vxlan1.2     |  2   |  4   |     up     |  1.1.1.2:2   |  target:65123:2   |  target:65123:2   |
 +-----------------------+------------------+----+------------------+-----------------+------+------+------------+--------------+-------------------+-------------------+
 Total time: 1.51 seconds
+```
 
 The way any typo is highligthed can be seen in the next picture
-![Highligthing typo in EVPN configuration](images/Highligthed-Typo-EVPN-Fabric-Configuration.png)
+![ Highligthing typo in EVPN configuration ](images/Highligthed-Typo-EVPN-Fabric-Configuration.png)
 
-```
+
