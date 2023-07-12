@@ -125,4 +125,7 @@ Table: Sorted by Network Instance
 +-----------------------+------------------+----+------------------+-----------------+------+------+------------+--------------+-------------------+-------------------+
 Total time: 1.51 seconds
 
+The way any typo is highligthed can be seen in the next picture
+![Highligthing typo in EVPN configuration](images/Highligthed-Typo-EVPN-Fabric-Configuration.png)
+
 ```

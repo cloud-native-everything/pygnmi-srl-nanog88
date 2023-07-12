@@ -60,7 +60,7 @@ clab-dc-k8s-LEAF-DC-2:
     - name: l2evpn1003
       admin-state: enable
       type: mac-vrf
-      evi: 1003
+      evi: 1013
       vni: 1003
       vxtype: bridged
       anycast-gw: 10.0.3.1/24

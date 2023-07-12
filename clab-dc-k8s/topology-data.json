@@ -1,0 +1,240 @@
+{
+  "name": "dc-k8s",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "kind",
+        "bridge": "br-8d6da781fd79",
+        "ipv4-subnet": "172.18.100.0/16",
+        "ipv4-gw": "172.18.0.1",
+        "mtu": "1500",
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "BORDER-DC": {
+      "index": "0",
+      "shortname": "BORDER-DC",
+      "longname": "clab-dc-k8s-BORDER-DC",
+      "fqdn": "BORDER-DC.dc-k8s.io",
+      "group": "",
+      "labdir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/BORDER-DC",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux:21.6.4",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.18.100.125",
+      "mgmt-ipv4-prefix-length": 16,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8d6da781fd79",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/BORDER-DC",
+        "clab-node-name": "BORDER-DC",
+        "clab-node-type": "ixrd3",
+        "clab-topo-file": "/root/pygnmi-srl-nanog88/topo.yml",
+        "containerlab": "dc-k8s"
+      }
+    },
+    "LEAF-DC-1": {
+      "index": "1",
+      "shortname": "LEAF-DC-1",
+      "longname": "clab-dc-k8s-LEAF-DC-1",
+      "fqdn": "LEAF-DC-1.dc-k8s.io",
+      "group": "",
+      "labdir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/LEAF-DC-1",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux:21.6.4",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.18.100.121",
+      "mgmt-ipv4-prefix-length": 16,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8d6da781fd79",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/LEAF-DC-1",
+        "clab-node-name": "LEAF-DC-1",
+        "clab-node-type": "ixrd3",
+        "clab-topo-file": "/root/pygnmi-srl-nanog88/topo.yml",
+        "containerlab": "dc-k8s"
+      }
+    },
+    "LEAF-DC-2": {
+      "index": "2",
+      "shortname": "LEAF-DC-2",
+      "longname": "clab-dc-k8s-LEAF-DC-2",
+      "fqdn": "LEAF-DC-2.dc-k8s.io",
+      "group": "",
+      "labdir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/LEAF-DC-2",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux:21.6.4",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.18.100.122",
+      "mgmt-ipv4-prefix-length": 16,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8d6da781fd79",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/LEAF-DC-2",
+        "clab-node-name": "LEAF-DC-2",
+        "clab-node-type": "ixrd3",
+        "clab-topo-file": "/root/pygnmi-srl-nanog88/topo.yml",
+        "containerlab": "dc-k8s"
+      }
+    },
+    "SPINE-DC-1": {
+      "index": "3",
+      "shortname": "SPINE-DC-1",
+      "longname": "clab-dc-k8s-SPINE-DC-1",
+      "fqdn": "SPINE-DC-1.dc-k8s.io",
+      "group": "",
+      "labdir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/SPINE-DC-1",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux:21.6.4",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.18.100.123",
+      "mgmt-ipv4-prefix-length": 16,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8d6da781fd79",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/SPINE-DC-1",
+        "clab-node-name": "SPINE-DC-1",
+        "clab-node-type": "ixrd3",
+        "clab-topo-file": "/root/pygnmi-srl-nanog88/topo.yml",
+        "containerlab": "dc-k8s"
+      }
+    },
+    "SPINE-DC-2": {
+      "index": "4",
+      "shortname": "SPINE-DC-2",
+      "longname": "clab-dc-k8s-SPINE-DC-2",
+      "fqdn": "SPINE-DC-2.dc-k8s.io",
+      "group": "",
+      "labdir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/SPINE-DC-2",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux:21.6.4",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.18.100.124",
+      "mgmt-ipv4-prefix-length": 16,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8d6da781fd79",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/root/pygnmi-srl-nanog88/clab-dc-k8s/SPINE-DC-2",
+        "clab-node-name": "SPINE-DC-2",
+        "clab-node-type": "ixrd3",
+        "clab-topo-file": "/root/pygnmi-srl-nanog88/topo.yml",
+        "containerlab": "dc-k8s"
+      }
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "LEAF-DC-1",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:36:55:41",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SPINE-DC-1",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:c5:eb:3e",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "LEAF-DC-2",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:24:7e:1a",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SPINE-DC-1",
+        "interface": "e1-2",
+        "mac": "aa:c1:ab:f0:23:aa",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "BORDER-DC",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:5d:a1:07",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SPINE-DC-1",
+        "interface": "e1-10",
+        "mac": "aa:c1:ab:38:7f:19",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "LEAF-DC-1",
+        "interface": "e1-2",
+        "mac": "aa:c1:ab:f2:e3:3f",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SPINE-DC-2",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:f4:f4:af",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "LEAF-DC-2",
+        "interface": "e1-2",
+        "mac": "aa:c1:ab:c5:88:bb",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SPINE-DC-2",
+        "interface": "e1-2",
+        "mac": "aa:c1:ab:78:3e:e9",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "BORDER-DC",
+        "interface": "e1-2",
+        "mac": "aa:c1:ab:4a:f1:60",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SPINE-DC-2",
+        "interface": "e1-10",
+        "mac": "aa:c1:ab:26:59:9f",
+        "peer": "a"
+      }
+    }
+  ]
+}
