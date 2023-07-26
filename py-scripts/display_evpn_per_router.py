@@ -25,8 +25,8 @@ from prettytable import PrettyTable
 import yaml
 import time
 import logging
-from srl_evpn_class import SrlDevice
-from srl_evpn_class import MergeEvpnToArray
+from SrlEvpn import SrlDevice
+from SrlEvpn import MergeEvpnToArray
 
 # Define logging levels as constants
 LOGGING_LEVEL_CRITICAL = logging.CRITICAL

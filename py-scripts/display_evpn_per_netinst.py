@@ -24,9 +24,9 @@ Last Updated: June 2023
 import yaml
 import time
 import logging
-from srl_evpn_class import SrlDevice
-from srl_evpn_class import MergeEvpnToArray
-from srl_evpn_class import HighlightAlternateGroups
+from SrlEvpn import SrlDevice
+from SrlEvpn import MergeEvpnToArray
+from SrlEvpn import HighlightAlternateGroups
 from tabulate import tabulate
 
 # Define logging levels as constants
