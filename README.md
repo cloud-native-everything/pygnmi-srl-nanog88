@@ -19,12 +19,13 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 # Install containerlab
-bash -c "$(curl -sL https://get.containerlab.dev)" -- -v 0.25.1
+bash -c "$(curl -sL https://get.containerlab.dev)"
 ```
 
 ## Installing pyGNMI and requirements
 
 Necessary Python packages for your script including `pygnmi`, `prettytable`, `yaml` and others.
+check (requirements.txt)[py-scripts/requirements.txt] in py-scripts.
 
 ### Pre-requisites
 
@@ -40,10 +41,7 @@ Pip is the package installer for Python. If you don't have pip installed, you ca
 Run the following commands to install the necessary packages:
 
 ```bash
-pip install pygnmi
-pip install prettytable
-pip install PyYAML
-pip install tabulate
+pip3 install -r py-scripts/requirements.txt
 ```
 
 Note: The operator and time packages are part of the Python Standard Library and should be available by default, so you don't need to install them separately.
